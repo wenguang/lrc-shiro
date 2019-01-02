@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="lrc-shiro-authentication" />
+        <module name="lrc-shiro-authorization" />
+        <module name="lrc-shiro-casclient" />
+        <module name="lrc-shiro-crypto" />
+        <module name="lrc-shiro-filter" />
+        <module name="lrc-shiro-session" />
+        <module name="lrc-shiro-spring" />
+        <module name="lrc-shiro-stuff" />
+        <module name="lrc-shiro-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lrc-shiro-encryption" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,21 @@
+
+过滤器抽象类继承关系
+
+AccessControlFilter ——> PathMatchingFilter ——> AdviceFilter ——> OncePerRequestFilter
+
+
+http://jinnianshilongnian.iteye.com/blog/2025656
+
+Shiro对Servlet容器的FilterChain进行了代理，即ShiroFilter在继续Servlet容器的Filter链的执行之前，
+通过ProxiedFilterChain对Servlet容器的FilterChain进行了代理；即先走Shiro自己的Filter体系，
+然后才会委托给Servlet容器的FilterChain进行Servlet容器级别的Filter链执行；
+Shiro的ProxiedFilterChain执行流程：1、先执行Shiro自己的Filter链；2、再执行Servlet容器的Filter链（即原始的Filter）。
+
+而ProxiedFilterChain是通过FilterChainResolver根据配置文件中[urls]部分是否与请求的URL是否匹配解析得到的。
+
+Shiro内部提供了一个路径匹配的FilterChainResolver实现：PathMatchingFilterChainResolver，
+其根据[urls]中配置的url模式（默认Ant风格）=拦截器链和请求的url是否匹配来解析得到配置的拦截器链的；
+而PathMatchingFilterChainResolver内部通过FilterChainManager维护着拦截器链，比如DefaultFilterChainManager实现维护着url模式与拦截器链的关系。
+因此我们可以通过FilterChainManager进行动态动态增加url模式与拦截器链的关系。
+
+如果想自定义FilterChainResolver，可以通过实现WebEnvironment接口完成

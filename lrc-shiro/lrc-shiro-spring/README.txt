@@ -1,0 +1,10 @@
+//spring的proxy-target-class详解
+https://blog.csdn.net/shaoweijava/article/details/76474652
+
+//第十二章 与Spring集成——《跟我学Shiro》
+http://jinnianshilongnian.iteye.com/blog/2029717
+
+//第十四章 SSL——《跟我学Shiro》
+http://jinnianshilongnian.iteye.com/blog/2036420
+
+本模块除也与spring整合，也有ssl的内容（ssl部分还有问题）

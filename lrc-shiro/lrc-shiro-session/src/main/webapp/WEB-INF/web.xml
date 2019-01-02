@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"
+         metadata-complete="false">
+
+  <display-name>lrc-shiro-session</display-name>
+
+  <!--
+    在web.xml中定义的context-param、listener、filter、servlet的加载顺序：
+    1、servlet容器（如tomcat）读web.xml中的context-param和listener
+    2、servlet容器为应用创建servletContext
+    3、servlet容器把context-param的值传给servletContext
+    4、servlet容器创建listener实例，监听
+    5、在listener的监听方法中，通过ServletContextEvent.getServletContext()得到上下文servletContext从而得到context-param定义的参数
+    6、利用context-param的值进行处理
+
+    在shiro应用中
+    web.xml有名为shiroEnvironmentClass、shiroConfigLocations的context-param参数，名为EnvironmentLoaderListener的监听器
+    shiroEnvironmentClass、shiroConfigLocations定义在EnvironmentLoader类中
+
+    EnvironmentLoaderListener的监听器继承了EnvironmentLoader，且实现ServletContextListener接口
+    EnvironmentLoaderListener在contextInitailized事件触发时，给EnvironmentLoader传入shiroEnvironmentClass、shiroConfigLocations的值，
+    它用shiroEnvironmentClass指定的类去创建webEnvironment实例，如IniWebEnvironment
+
+    那IniWebEnvironment有啥用？
+    它用从EnvironmentLoader传的shiroConfigLocations指定的shiro的ini配置文件创建WebSecurityManager
+    同时，它还维护着FilterChainResolver
+  -->
+
+  <context-param>
+    <param-name>shiroEnvironmentClass</param-name>
+    <param-value>org.apache.shiro.web.env.IniWebEnvironment</param-value>
+  </context-param>
+  <context-param>
+    <param-name>shiroConfigLocations</param-name>
+    <param-value>classpath:shiro-web.ini</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+  </listener>
+
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
+
+</web-app>
